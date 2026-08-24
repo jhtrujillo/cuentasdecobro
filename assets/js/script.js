@@ -635,7 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('acreedor-documento').value = defaultEmisor.documento;
                 
                 // Format default concept
-                const defaultConcept = `Por prestación de servicios de: [Descripción del servicio]. \n\nPor favor, realizar el pago a la cuenta de ${defaultEmisor.tipo_cuenta} N° ${defaultEmisor.numero_cuenta} de ${defaultEmisor.banco}.`;
+                const defaultConcept = `Por prestación de servicios de: [Descripción del servicio]. \nPor favor, realizar el pago a la cuenta de ${defaultEmisor.tipo_cuenta} N° ${defaultEmisor.numero_cuenta} de ${defaultEmisor.banco}.`;
                 document.getElementById('cuenta-concepto').value = defaultConcept;
                 
                 if (defaultEmisor.firma_base64) {

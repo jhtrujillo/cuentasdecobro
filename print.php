@@ -47,9 +47,9 @@ function formatDocumento($doc) {
     return 'C.C. ' . $doc;
 }
 
-// Limpiar concepto para evitar excesos de saltos de línea (máximo 2 saltos consecutivos)
+// Limpiar concepto para evitar espacios en blanco (forzar máximo 1 salto de línea)
 $concepto_limpio = htmlspecialchars($cuenta['concepto']);
-$concepto_limpio = preg_replace('/(\r\n|\n|\r){3,}/', "\n\n", $concepto_limpio);
+$concepto_limpio = preg_replace('/(\r\n|\n|\r)+/', "\n", $concepto_limpio);
 $concepto_limpio = nl2br($concepto_limpio);
 ?>
 <!DOCTYPE html>
