@@ -46,6 +46,11 @@ function formatDocumento($doc) {
     // Si es sólo numérico, asumimos Cédula de Ciudadanía
     return 'C.C. ' . $doc;
 }
+
+// Limpiar concepto para evitar excesos de saltos de línea (máximo 2 saltos consecutivos)
+$concepto_limpio = htmlspecialchars($cuenta['concepto']);
+$concepto_limpio = preg_replace('/(\r\n|\n|\r){3,}/', "\n\n", $concepto_limpio);
+$concepto_limpio = nl2br($concepto_limpio);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -117,7 +122,7 @@ function formatDocumento($doc) {
             background-color: #ffffff;
             width: 816px; /* Ancho estándar carta en px a 96 DPI */
             min-height: 1056px; /* Alto estándar carta en px a 96 DPI */
-            padding: 85px 80px; /* Márgenes amplios de impresión */
+            padding: 60px 70px; /* Márgenes amplios de impresión */
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
@@ -371,7 +376,7 @@ function formatDocumento($doc) {
             <!-- Concepto y Datos de Pago -->
             <div class="concepto-section">
                 <div class="label">CONCEPTO:</div>
-                <div class="body-text"><?php echo nl2br(htmlspecialchars($cuenta['concepto'])); ?></div>
+                <div class="body-text"><?php echo $concepto_limpio; ?></div>
             </div>
 
             <?php if (!empty($cuenta['rango_fechas'])): ?>
