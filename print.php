@@ -345,7 +345,7 @@ function formatDocumento($doc) {
             </div>
             
             <div style="text-align: center; margin-top: 5px; margin-bottom: 25px; font-size: 14px;">
-                <strong>Fecha de Emisión:</strong> <?php echo date('d/m/Y', strtotime($cuenta['fecha'])); ?>
+                <strong>Fecha de Creación:</strong> <?php echo date('d/m/Y', strtotime($cuenta['created_at'])); ?>
             </div>
 
             <!-- Deudor (Cliente que debe pagar) -->
