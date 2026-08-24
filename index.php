@@ -381,6 +381,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="cuenta-rango-fechas">Rango de Fechas (Opcional)</label>
+                            <input type="text" id="cuenta-rango-fechas" class="form-control" placeholder="Ej: del 01 al 15 de Mayo">
+                        </div>
+
+                        <div class="form-group">
                             <label for="cuenta-concepto">Concepto y Detalles de Pago</label>
                             <textarea id="cuenta-concepto" class="form-control" required rows="4" placeholder="Ej: Por acompañamiento vehicular. Por favor, realizar el pago a la cuenta de ahorros..."></textarea>
                         </div>
@@ -446,6 +451,11 @@
                                     <div class="concepto-seccion">
                                         <div class="concepto-titulo">CONCEPTO:</div>
                                         <div class="concepto-texto" id="prev-concepto">Por acompañamiento vehicular. Por favor, realizar el pago al a cuenta de ahorros N°514-117196-38 de Bancolombia.</div>
+                                    </div>
+                                    
+                                    <div class="concepto-seccion" id="prev-rango-seccion" style="display: none; margin-top: 15px;">
+                                        <div class="concepto-titulo" style="font-size: 11px; font-weight: bold; margin-bottom: 5px; letter-spacing: 1px;">RANGO DE FECHAS:</div>
+                                        <div class="concepto-texto" id="prev-rango-fechas" style="font-size: 13px;"></div>
                                     </div>
                                 </div>
                                 

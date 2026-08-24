@@ -371,8 +371,15 @@ function formatDocumento($doc) {
             <!-- Concepto y Datos de Pago -->
             <div class="concepto-section">
                 <div class="label">CONCEPTO:</div>
-                <div class="body-text"><?php echo htmlspecialchars($cuenta['concepto']); ?></div>
+                <div class="body-text"><?php echo nl2br(htmlspecialchars($cuenta['concepto'])); ?></div>
             </div>
+
+            <?php if (!empty($cuenta['rango_fechas'])): ?>
+            <div class="concepto-section" style="margin-top: 15px;">
+                <div class="label">RANGO DE FECHAS:</div>
+                <div class="body-text"><?php echo htmlspecialchars($cuenta['rango_fechas']); ?></div>
+            </div>
+            <?php endif; ?>
         </div>
 
         <!-- Firma Digital en la parte inferior izquierda -->

@@ -247,6 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const acreedorDoc = document.getElementById('acreedor-documento').value || '[Documento del Emisor/Acreedor]';
         const valorInput = parseFloat(document.getElementById('cuenta-valor').value) || 0;
         const concepto = document.getElementById('cuenta-concepto').value || '[Descripción detallada del cobro y datos bancarios]';
+        const rangoFechas = document.getElementById('cuenta-rango-fechas') ? document.getElementById('cuenta-rango-fechas').value : '';
         
         // Helper to format company document (Nit vs CC)
         function formatDocumento(doc) {
@@ -279,6 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('prev-letras').innerText = letras;
         document.getElementById('prev-valor-num').innerText = '(' + formatCOP(valorInput) + ')';
         document.getElementById('prev-concepto').innerText = concepto;
+        
+        if (rangoFechas && rangoFechas.trim() !== '') {
+            if (document.getElementById('prev-rango-seccion')) document.getElementById('prev-rango-seccion').style.display = 'block';
+            if (document.getElementById('prev-rango-fechas')) document.getElementById('prev-rango-fechas').innerText = rangoFechas;
+        } else {
+            if (document.getElementById('prev-rango-seccion')) document.getElementById('prev-rango-seccion').style.display = 'none';
+        }
         
         document.getElementById('prev-firma-nombre').innerText = acreedorNombre;
         document.getElementById('prev-firma-doc').innerText = acreedorDoc;
@@ -639,6 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } else {
                 document.getElementById('cuenta-concepto').value = '';
+                if (document.getElementById('cuenta-rango-fechas')) document.getElementById('cuenta-rango-fechas').value = '';
             }
         } else if (action === 'edit' && id) {
             modalTitle.innerText = 'Editar Cuenta de Cobro';
@@ -654,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('cuenta-valor').value = cuenta.valor;
                 document.getElementById('cuenta-valor-letras').value = cuenta.valor_letras;
                 document.getElementById('cuenta-concepto').value = cuenta.concepto;
+                if (document.getElementById('cuenta-rango-fechas')) document.getElementById('cuenta-rango-fechas').value = cuenta.rango_fechas || '';
                 
                 const pagadoSelect = document.getElementById('cuenta-pagado');
                 if (pagadoSelect) pagadoSelect.value = cuenta.pagado || '0';
@@ -765,6 +775,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const valor = document.getElementById('cuenta-valor').value;
         const valorLetras = document.getElementById('cuenta-valor-letras').value;
         const concepto = document.getElementById('cuenta-concepto').value;
+        const rangoFechas = document.getElementById('cuenta-rango-fechas') ? document.getElementById('cuenta-rango-fechas').value : '';
         const pagadoSelect = document.getElementById('cuenta-pagado');
         const pagado = pagadoSelect ? pagadoSelect.value : '0';
 
@@ -787,6 +798,7 @@ document.addEventListener('DOMContentLoaded', () => {
             valor: valor,
             valor_letras: valorLetras,
             concepto: concepto,
+            rango_fechas: rangoFechas,
             firma_base64: currentFirmaBase64,
             pagado: pagado
         };

@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS cuentas (
     acreedor_documento VARCHAR(50) NOT NULL, -- C.C. o NIT de la persona que cobra
     valor DECIMAL(15, 2) NOT NULL, -- Valor numérico (ej. 4741188)
     valor_letras VARCHAR(500) NOT NULL, -- Valor convertido a letras
-    concepto TEXT NOT NULL, -- Descripción detallada del cobro y datos bancarios
+    concepto TEXT NOT NULL, 
+    rango_fechas VARCHAR(255) NULL,  -- Descripción detallada del cobro y datos bancarios
     firma_base64 LONGTEXT NULL, -- Copia de la firma usada en esta cuenta (base64)
     pagado TINYINT(1) DEFAULT 0, -- Estado de cobro (0 = Pendiente, 1 = Cobrado)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

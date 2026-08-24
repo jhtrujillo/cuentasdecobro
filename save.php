@@ -32,6 +32,17 @@ try {
     }
 }
 
+// Auto-add column 'rango_fechas' to existing 'cuentas' table if it doesn't exist
+try {
+    $pdo->query("SELECT rango_fechas FROM cuentas LIMIT 1");
+} catch (PDOException $e) {
+    try {
+        $pdo->exec("ALTER TABLE cuentas ADD COLUMN rango_fechas VARCHAR(255) NULL");
+    } catch (PDOException $ex) {
+        // ignore if already done
+    }
+}
+
 try {
     $pdo->query("SELECT 1 FROM otros_ingresos LIMIT 1");
 } catch (PDOException $e) {
@@ -107,6 +118,7 @@ try {
             $valor = floatval($data['valor']);
             $valor_letras = trim($data['valor_letras']);
             $concepto = trim($data['concepto']);
+            $rango_fechas = isset($data['rango_fechas']) ? trim($data['rango_fechas']) : null;
             $firma_base64 = isset($data['firma_base64']) ? $data['firma_base64'] : null;
             $pagado = isset($data['pagado']) ? intval($data['pagado']) : 0;
 
@@ -128,6 +140,7 @@ try {
                             valor = :valor,
                             valor_letras = :valor_letras,
                             concepto = :concepto,
+                            rango_fechas = :rango_fechas,
                             firma_base64 = :firma_base64,
                             pagado = :pagado
                         WHERE id = :id";
@@ -142,6 +155,7 @@ try {
                     ':valor' => $valor,
                     ':valor_letras' => $valor_letras,
                     ':concepto' => $concepto,
+                    ':rango_fechas' => $rango_fechas,
                     ':firma_base64' => $firma_base64,
                     ':pagado' => $pagado,
                     ':id' => $id
@@ -149,9 +163,9 @@ try {
             } else {
                 // INSERT New invoice
                 $sql = "INSERT INTO cuentas 
-                        (numero_cuenta, fecha, deudor_nombre, deudor_nit, acreedor_nombre, acreedor_documento, valor, valor_letras, concepto, firma_base64, pagado)
+                        (numero_cuenta, fecha, deudor_nombre, deudor_nit, acreedor_nombre, acreedor_documento, valor, valor_letras, concepto, rango_fechas, firma_base64, pagado)
                         VALUES 
-                        (:numero_cuenta, :fecha, :deudor_nombre, :deudor_nit, :acreedor_nombre, :acreedor_documento, :valor, :valor_letras, :concepto, :firma_base64, :pagado)";
+                        (:numero_cuenta, :fecha, :deudor_nombre, :deudor_nit, :acreedor_nombre, :acreedor_documento, :valor, :valor_letras, :concepto, :rango_fechas, :firma_base64, :pagado)";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
                     ':numero_cuenta' => $numero_cuenta,
@@ -163,6 +177,7 @@ try {
                     ':valor' => $valor,
                     ':valor_letras' => $valor_letras,
                     ':concepto' => $concepto,
+                    ':rango_fechas' => $rango_fechas,
                     ':firma_base64' => $firma_base64,
                     ':pagado' => $pagado
                 ]);
